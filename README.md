@@ -1,6 +1,6 @@
 # jwks
 
-TODO: Write a description here
+Simple library that validates JWT against RS256 JWKS URI
 
 ## Installation
 
@@ -9,7 +9,7 @@ TODO: Write a description here
    ```yaml
    dependencies:
      jwks:
-       github: your-github-user/jwks
+       github: place-lab/jwks
    ```
 
 2. Run `shards install`
@@ -36,4 +36,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [Anh (Duke) Nguyen](https://github.com/your-github-user) - creator and maintainer
+- [Duke Nguyen](https://github.com/dukeraphaelng) - creator and maintainer
