@@ -26,7 +26,8 @@ module JW
       # https://tools.ietf.org/html/rfc7518#section-6.1
       # https://tools.ietf.org/html/rfc7518#section-7.4.2
       enum Kty
-        EC
+        # Only supports RSA at the moment
+        # EC
         RSA
       end
 
@@ -74,16 +75,17 @@ module JW
 
   module Token
     def self.validate_with_jwks_uri(jwt_token : String, jwks_uri : String)
-      # Get jwt_header
+      # JWT Header
       jwt_header = ::JWT.decode(token: jwt_token, verify: false, validate: false)[1]
       raise ArgumentError.new("Typ #{jwt_header["typ"]} of invalid type (should be JWT)") unless jwt_header["typ"] == "JWT"
 
-      # Public Key
+      # JWT Algo
+      algo = ::JWT::Algorithm.parse(jwt_header["alg"].as_s)
+      raise ArgumentError.new("Alg #{jwt_header["alg"]} not yet supported (only RS256)") unless algo.as?(::JWT::Algorithm::RS256)
+
+      # JWT Public Key PEM
       jwk = JW::Public::KeySets.select(jwks_uri, jwt_header["kid"].as_s)
       jwt_public_key_pem = jwk.to_pem
-
-      # Algo
-      algo = ::JWT::Algorithm.parse(jwt_header["alg"].as_s)
 
       ::JWT.decode(token: jwt_token, key: jwt_public_key_pem, algorithm: algo, verify: true, validate: true)
     end
