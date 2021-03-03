@@ -3,7 +3,6 @@
 /bin/
 /.shards/
 *.dwarf
-public.pem
 
 # Libraries don't need dependency lock
 # Dependencies will be locked in applications that use them

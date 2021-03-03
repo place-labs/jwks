@@ -21,9 +21,9 @@ XwIDAQAB
 
   sample_jwks_uri = "https://placeostesting.b2clogin.com/placeostesting.onmicrosoft.com/b2c_1_signupsignin1/discovery/v2.0/keys"
 
-  it "Public::KeySets.get" do
+  it "Public::KeySets.values" do
     # Use WebMock here in the future
-    keys = JW::Public::KeySets.get(sample_jwks_uri)
+    keys = JW::Public::KeySets.new(sample_jwks_uri).values
     keys.should eq(Array(JW::Public::Key).from_json(sample_jwks, "keys"))
   end
 

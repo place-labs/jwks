@@ -11,6 +11,8 @@ dependencies:
     github: crystal-community/jwt
   simple_retry:
     github: spider-gazelle/simple_retry
+  tasker:
+    github: spider-gazelle/tasker
 
 crystal: 0.36.1
 

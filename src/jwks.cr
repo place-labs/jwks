@@ -5,9 +5,9 @@ require "http/client"
 require "json"
 require "jwt"
 require "simple_retry"
+require "tasker"
 
 module JW
-  # RSA - RS256 Algorithm
   module Public
     struct Key
       include JSON::Serializable
@@ -19,7 +19,7 @@ module JW
       property use : String
       property kty : Kty
 
-      # Public Key Props
+      # RSA - RS256 Algorithm Public Key Props
       property n : String
       property e : String
 
@@ -51,23 +51,30 @@ module JW
       end
     end
 
-    module KeySets
-      extend self
+    class KeySets
+      getter values : Array(Key)?
+      getter uri : String
+      getter cache_duration : Time::Span = 24.hours
 
-      def get(uri : String) : Array(JW::Public::Key)
-        # Cache this and reset it every 24 hours
-        json_keys = HTTP::Client.get(uri).body
-        Array(Key).from_json(json_keys, "keys")
+      def initialize(@uri, @cache_duration = 24.hours)
+        jwks = HTTP::Client.get(uri).body
+
+        Tasker.every(cache_duration) do
+          @values = Array(Key).from_json(HTTP::Client.get(uri).body, "keys").not_nil!
+        end
+
+        @uri = uri
+        @values = Array(Key).from_json(jwks, "keys").not_nil!
       end
 
-      def select(uri : String, kid : String) : Key
+      def select(kid : String) : Key
         SimpleRetry.try_to(
           max_attempts: 3,
           retry_on: NilAssertionError,
           base_interval: 1.milliseconds,
         ) do |count|
           Log.info { "Retry attempt: #{count}" }
-          get(uri).find(&.kid.== kid).not_nil!
+          self.class.new(@uri).values.not_nil!.find(&.kid.== kid).not_nil!
         end
       end
     end
@@ -84,7 +91,7 @@ module JW
       raise ArgumentError.new("Alg #{jwt_header["alg"]} not yet supported (only RS256)") unless algo.as?(::JWT::Algorithm::RS256)
 
       # JWT Public Key PEM
-      jwk = JW::Public::KeySets.select(jwks_uri, jwt_header["kid"].as_s)
+      jwk = JW::Public::KeySets.new(jwks_uri).select(jwt_header["kid"].as_s)
       jwt_public_key_pem = jwk.to_pem
 
       ::JWT.decode(token: jwt_token, key: jwt_public_key_pem, algorithm: algo, verify: true, validate: true)
