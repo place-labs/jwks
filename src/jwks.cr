@@ -11,12 +11,9 @@ module JW
   module Public
     struct Key
       include JSON::Serializable
+      include JSON::Serializable::Unmapped
 
       property kid : String
-
-      @[JSON::Field(converter: Time::EpochConverter)]
-      property nbf : Time
-      property use : String
       property kty : Kty
 
       # RSA - RS256 Algorithm Public Key Props
