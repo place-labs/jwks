@@ -5,3 +5,4 @@ script:
   - shards install
   - crystal spec
   - crystal tool format --check
+  - bin/ameba
