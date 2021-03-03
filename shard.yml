@@ -1,0 +1,17 @@
+name: jwks
+version: 0.1.0
+
+authors:
+  - Anh (Duke) Nguyen <58082199+dukeraphaelng@users.noreply.github.com>
+
+dependencies:
+  openssl_ext:
+    github: spider-gazelle/openssl_ext
+  jwt:
+    github: crystal-community/jwt
+  simple_retry:
+    github: spider-gazelle/simple_retry
+
+crystal: 0.36.1
+
+license: MIT
