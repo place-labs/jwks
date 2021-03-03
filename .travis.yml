@@ -1,8 +1,5 @@
-language: crystal
+services:
+  - docker
 
-# Uncomment the following if you'd like Travis to run specs and check code formatting
 script:
-  - shards install
-  - crystal spec
-  - crystal tool format --check
-  - bin/ameba
+  - docker build . -t jwks && docker run jwks
