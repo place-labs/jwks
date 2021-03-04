@@ -20,11 +20,26 @@ Simple library that validates JWT against RS256 JWKS URI
 require "jwks"
 ```
 
-TODO: Write usage instructions here
-
 ## Development
 
-TODO: Write development instructions here
+### Docker
+
+```bash
+docker build . -t jwks && docker run jwks
+```
+
+### Without Docker
+
+- You need to have openssl@1.1.1
+- For MacOS users, if Crystal has not installed this for you
+```bash
+brew install openssl@1.1.1
+
+shards install
+crystal spec
+crystal tool format --check
+bin/ameba
+```
 
 ## Contributing
 
