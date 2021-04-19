@@ -1,5 +1,5 @@
 name: jwks
-version: 0.1.1
+version: 0.2.0
 
 authors:
   - Duke Nguyen <duke@place.technology>
@@ -20,6 +20,6 @@ development_dependencies:
   webmock:
     github: manastech/webmock.cr
 
-crystal: 0.36.1
+crystal: ~> 1.0
 
 license: MIT
