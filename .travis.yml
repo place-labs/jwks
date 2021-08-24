@@ -1,5 +1,0 @@
-services:
-  - docker
-
-script:
-  - docker build . -t jwks && docker run jwks
