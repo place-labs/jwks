@@ -8,6 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: crystal-lang/install-crystal@v1
+      - name: Install deps
+        run: shards install
       - name: Build docs
         run: crystal docs
       - name: Deploy docs
