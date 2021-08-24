@@ -1,20 +1,26 @@
 name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the develop branch
 on: [ push ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  test:
-    timeout-minutes: 10
-    # The type of runner that the job will run on
+  test_and_deploy:
+    strategy:
+    fail-fast: false
+    matrix:
+      crystal: [1.0.0, latest, nightly]
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Test
-        run: docker build . -t jwks && docker run jwks
+      - name: Download source
+        uses: actions/checkout@v2
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: ${{ matrix.crystal }}
+      - name: Run tests
+        run: crystal spec --order=random --error-on-warnings --error-trace -v
+      - name: Build docs
+        run: crystal docs
+      - name: Deploy docs
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: docs # The branch the action should deploy to.
+          folder: docs
