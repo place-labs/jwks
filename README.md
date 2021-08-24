@@ -1,5 +1,7 @@
 # jwks
 
+[![CI](https://github.com/place-labs/jwks/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/place-labs/jwks/actions/workflows/ci.yml) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/place-labs/jwks)](https://img.shields.io/github/v/release/place-labs/jwks?style=flat-square)
+
 Simple library that validates JWT against RS256 JWKS URI
 
 ## Installation
@@ -9,7 +11,7 @@ Simple library that validates JWT against RS256 JWKS URI
    ```yaml
    dependencies:
      jwks:
-       github: place-lab/jwks
+       github: place-labs/jwks
    ```
 
 2. Run `shards install`
@@ -45,10 +47,15 @@ bin/ameba
 
 1. Fork it (<https://github.com/dukeraphaelng/jwks/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
+3. Commit your changes (`git commit -am 'feat(jwks.cr): Add some feature'`)
+   - **Git Commit Convention**: This repository follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)/ [the Angular convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines). The preferred tool of git commit is [commitizen/cz-cli](https://github.com/commitizen/cz-cli).
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
 ## Contributors
 
 - [Duke Nguyen](https://github.com/dukeraphaelng) - creator and maintainer
+
+## License
+
+- [MIT](LICENSE)
