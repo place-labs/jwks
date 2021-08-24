@@ -1,8 +1,10 @@
 # jwks
 
-[![CI](https://github.com/place-labs/jwks/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/place-labs/jwks/actions/workflows/ci.yml) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/place-labs/jwks)](https://img.shields.io/github/v/release/place-labs/jwks?style=flat-square)
+[![CI](https://github.com/place-labs/jwks/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/place-labs/jwks/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://place-labs.github.io/jwks/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/place-labs/jwks)](https://img.shields.io/github/v/release/place-labs/jwks?style=flat-square)
 
 Simple library that validates JWT against RS256 JWKS URI
+
+- [Documentation](https://place-labs.github.io/jwks/)
 
 ## Installation
 

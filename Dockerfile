@@ -11,4 +11,4 @@ COPY src /app/src
 RUN crystal tool format --check
 RUN crystal lib/ameba/bin/ameba.cr
 
-ENTRYPOINT ["crystal", "spec", "--error-trace", "-v"]
+ENTRYPOINT ["crystal", "spec", "--error-on-warnings", "--error-trace", "-v"]
