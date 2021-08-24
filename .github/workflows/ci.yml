@@ -3,9 +3,9 @@ on: [ push ]
 jobs:
   test_and_deploy:
     strategy:
-    fail-fast: false
-    matrix:
-      crystal: [1.0.0, latest, nightly]
+      fail-fast: false
+      matrix:
+        crystal: [1.0.0, latest, nightly]
     runs-on: ubuntu-latest
     steps:
       - name: Download source
